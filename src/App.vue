@@ -1,45 +1,61 @@
+<script setup>
+
+import { useQuasar } from 'quasar'
+import { ref } from 'vue'
+
+const email = ref('')
+
+const onReset = () => {
+  email.value = ''
+}
+
+const correoValido = () => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email.value);
+}
+
+</script>
+
 <template>
-  <div class="body">
-    <div class="barras">
-    </div>
+  <main>
+    <header>
+    </header>
 
-    <div class="half">
-      <div class="image">
+    <section>
+      <article id="image">
         <img src="./assets/Stocktrack.jpg" alt="">
-      </div>
-      <div class="text">
-        <div class="text1">
-          <p class="Message">Por favor, digite su correo para el proceso de recuperación de contraseña</p>
+      </article>
+      <article id="text">
+        <div id="text1">
+          <p id="message">Por favor, digite su correo para el proceso de recuperación de contraseña</p>
         </div>
-        <div class="text2">
+        <div id="text2">
           <h3>Correo electrónico</h3>
-
         </div>
-        <div class="text3">
-          <input type="text" class="inputcorreo">
-          <button class="buttonpassword">Recuperar contraseña</button>
+        <div id="text3">
+          <q-form  @reset="onReset" id="inputcorreo" >
+            <q-input rounded outlined v-model="email" label="Digite su correo aquí..."  lazy-rules hide-bottom-space color="dark"
+              :rules="[val => val && val.length > 0 || 'Por favor ingrese su correo', val => val && correoValido() || 'Por favor ingrese un correo valido']" />
+          </q-form>
+          
+          <button id="buttonpassword" type="button" class="bg-primary">Recuperar contraseña</button>
         </div>
-      </div>
-    </div>
+       
 
-    <div class="barras">
-    </div>
+      </article>
+    </section>
 
-  </div>
+    <footer>
+    </footer>
+
+  </main>
 </template>
 
 
 
 
-<script setup>
-
-</script>
-
-
-
-
 <style scoped>
-.body {
+main {
   width: 100%;
   height: 100vh;
   display: flex;
@@ -47,19 +63,20 @@
   justify-content: space-between;
 }
 
-.half {
+section {
   width: 100%;
   height: 100%;
 
 }
 
-.barras {
+header,
+footer {
   width: 100%;
   background-color: #EEEEEE;
   height: 60px;
 }
 
-.image {
+#image {
   margin-left: 20px;
   margin-top: 20px;
   display: flex;
@@ -71,7 +88,7 @@ img {
   height: 200px;
 }
 
-.text {
+#text {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 30px;
   display: flex;
@@ -80,72 +97,68 @@ img {
 
 }
 
-.text1 {
+#text1 {
   width: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.text2 {
+#text2 {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.Message {
+#message {
   text-align: center;
-
 }
 
-.text3 {
+#text3 {
   display: flex;
   flex-direction: column;
   gap: 60px;
   align-items: center;
 }
 
-.inputcorreo {
+#inputcorreo {
   width: 408px;
-  height: 45px;
-  flex-shrink: 0;
-  fill: var(--Final, #EEE);
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-  background-color: #eeeeee;
-  border: none;
-  border-radius: 10px;
-  font-size: 1em;
 }
 
-.buttonpassword {
-  background-color: #00adb5;
+#buttonpassword {
   color: white;
   font-weight: bolder;
-  font-size: 25px;
+  font-size: 30px;
   border-radius: 25px;
   cursor: pointer;
   width: 500px;
-  height: 40px;
+  height: 50px;
 }
 
-@media screen and (min-width: 390px) and (max-width: 520px){
-  .inputcorreo{
+#validation {
+  color: red;
+  font-size: 20px;
+}
+
+@media screen and (min-width: 390px) and (max-width: 520px) {
+  #inputcorreo {
     width: 288px;
   }
-  .buttonpassword{
+
+  #buttonpassword {
     width: 390px;
   }
 }
 
-@media screen and (min-width: 0px) and (max-width: 389px){
+@media screen and (min-width: 0px) and (max-width: 389px) {
 
-  .inputcorreo{
+  #inputcorreo {
     width: 230px;
   }
-  .buttonpassword{
+
+  #buttonpassword {
     width: 300px;
   }
 }
-
-
 </style>
